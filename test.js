@@ -1,12 +1,60 @@
 import needle from 'needle';
 
-needle.get('http://localhost:3000/', (err, res) => {
-    console.log(res.body) // prints the body of the response message
-})
-
-needle.post('http://localhost:3000/submit-data', 
-    { name: 'Ash'},
+needle.post('http://localhost:3000/add-book', 
+    {   name: 'Harry Potter and the Philosopher’s Stone',
+        isbn: '978-0-7475-3269-9',
+        author: "J.K Rowling",
+        year: "1997"
+    },
     (err, res) => {
-    console.log(res.body) // prints the server's response 'Received a POST request.'
+    console.log(res.body) 
 })
 
+needle.post('http://localhost:3000/add-book', 
+    {   name: 'Harry Potter and the Chamber of Secrets',
+        isbn: '0-7475-3849-2',
+        author: "J.K Rowling",
+        year: "1998"
+    },
+    (err, res) => {
+    console.log(res.body) 
+})
+
+needle.post('http://localhost:3000/add-book', 
+    {   name: 'The Little Prince',
+        isbn: '978-0156012195',
+        author: "Antoine Saint-Exupery",
+        year: "1943"
+    },
+    (err, res) => {
+    console.log(res.body) 
+})
+
+//invalid input
+needle.post('http://localhost:3000/add-book', 
+    {   name: 'The Book With Empty ISBN',
+        isbn: '',
+        author: "William Shakespeare",
+        year: "2000"
+    },
+    (err, res) => {
+    console.log(res.body) 
+})
+
+//invalid input
+needle.post('http://localhost:3000/add-book', 
+    {   name: 'The Book Without ISBN',
+        author: "John Pork",
+        year: "1999"
+    },
+    (err, res) => {
+    console.log(res.body) 
+})
+
+needle.get('http://localhost:3000/find-by-isbn-author?isbn=978-0-7475-3269-9&author=J.K+Rowling', (err, res) => {
+    console.log(res.body) 
+})
+
+needle.get('http://localhost:3000/find-by-author?author=J.K+Rowling', (err, res) => {
+    console.log(res.body) 
+})
